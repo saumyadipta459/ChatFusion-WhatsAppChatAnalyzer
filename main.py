@@ -3,6 +3,29 @@ import preprocessor, helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Mobile sidebar instruction
+st.markdown("""
+    <style>
+        .mobile-instruction {
+            display: none;
+            padding: 0.5rem;
+            background: #f0f2f6;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .mobile-instruction {
+                display: block;
+            }
+        }
+    </style>
+    <div class="mobile-instruction">
+        👈 <strong>Tap the arrow</strong> to open menu and upload your WhatsApp chat
+    </div>
+""", unsafe_allow_html=True)
+# ===== END OF PASTE =====
+
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 # Set font early to prevent glyph warnings
 plt.rcParams['font.family'] = 'DejaVu Sans'
