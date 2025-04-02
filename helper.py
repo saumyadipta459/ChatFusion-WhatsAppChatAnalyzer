@@ -6,7 +6,19 @@ import emoji
 
 extract = URLExtract()
 
+
 def fetch_stats(selected_user, df):
+    # Input validation
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if not all(col in df.columns for col in ['user', 'message']):
+        raise ValueError("DataFrame missing required columns 'user' or 'message'")
+
+    # Ensure string type
+    df = df.copy()
+    df['message'] = df['message'].astype(str)
+    df['user'] = df['user'].astype(str)
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
@@ -21,128 +33,196 @@ def fetch_stats(selected_user, df):
     # Fetch all the links shared
     links = []
     for message in df['message']:
-        links.extend(extract.find_urls(message))
+        try:
+            links.extend(extract.find_urls(message))
+        except:
+            continue  # Skip if URL extraction fails
 
     return num_messages, len(words), num_media_messages, len(links)
 
+
 def most_busy_users(df):
+    # Input validation
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if 'user' not in df.columns:
+        raise ValueError("DataFrame missing required column 'user'")
+
+    df['user'] = df['user'].astype(str)
     x = df['user'].value_counts().head()
-    df = round((df['user'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(
+    busy_df = round((df['user'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(
         columns={'index': 'Name', 'user': 'Percent'})
-    return x, df
+    return x, busy_df
+
 
 def create_wordcloud(selected_user, df):
-    # Remove group notifications and media messages
+    # Input validation and type safety
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if not all(col in df.columns for col in ['user', 'message']):
+        raise ValueError("DataFrame missing required columns")
+
+    df = df.copy()
+    df['message'] = df['message'].astype(str)
+    df['user'] = df['user'].astype(str)
+
+    # Filter data
     df = df[(df['user'] != 'group_notification') & (df['message'] != '<Media omitted>\n')]
 
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
-    # Read stop words
-    with open('stop_hinglish.txt', 'r') as f:
-        stop_words = set(f.read().split())
+    # Read stop words with error handling
+    try:
+        with open('stop_hinglish.txt', 'r', encoding='utf-8') as f:
+            stop_words = set(f.read().split())
+    except:
+        stop_words = set()
 
-    # Function to remove stop words
-    def remove_stop_words(message):
-        return " ".join([word for word in message.lower().split() if word not in stop_words])
+    # Process messages
+    df['message'] = df['message'].apply(
+        lambda msg: " ".join([word for word in str(msg).lower().split() if word not in stop_words])
+    )
 
-    # Apply the stop words removal
-    df['message'] = df['message'].apply(remove_stop_words)
-
-    # Combine all messages into a single string
     messages_text = df['message'].str.cat(sep=" ")
 
-    # Check if the message text is non-empty
     if not messages_text.strip():
-        print("No meaningful text found for WordCloud.")
         return None
 
     # Generate WordCloud
-    wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
-    df_wc = wc.generate(messages_text)
-    return df_wc
+    try:
+        wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
+        return wc.generate(messages_text)
+    except:
+        return None
+
 
 def most_common_words(selected_user, df):
-    # Read stop words
-    with open('stop_hinglish.txt', 'r') as f:
-        stop_words = set(f.read().split())
+    # Input validation
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if not all(col in df.columns for col in ['user', 'message']):
+        raise ValueError("DataFrame missing required columns")
+
+    df = df.copy()
+    df['message'] = df['message'].astype(str)
+    df['user'] = df['user'].astype(str)
 
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
-    # Remove group notifications and media messages
     df = df[(df['user'] != 'group_notification') & (df['message'] != '<Media omitted>\n')]
 
+    # Read stop words with error handling
+    try:
+        with open('stop_hinglish.txt', 'r', encoding='utf-8') as f:
+            stop_words = set(f.read().split())
+    except:
+        stop_words = set()
+
     words = []
-
     for message in df['message']:
-        words.extend([word for word in message.lower().split() if word not in stop_words])
+        words.extend([word for word in str(message).lower().split() if word not in stop_words])
 
-    most_common_df = pd.DataFrame(Counter(words).most_common(20))
-    return most_common_df
+    return pd.DataFrame(Counter(words).most_common(20))
+
 
 def emoji_helper(selected_user, df):
-    # Filter the DataFrame by selected user
+    # Input validation
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if 'message' not in df.columns:
+        raise ValueError("DataFrame missing required column 'message'")
+
+    df = df.copy()
+    df['message'] = df['message'].astype(str)
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
     emojis = []
     for message in df['message']:
-        emojis.extend([c for c in message if emoji.is_emoji(c)])
+        try:
+            emojis.extend([c for c in str(message) if emoji.is_emoji(c)])
+        except:
+            continue
 
-    emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
+    if not emojis:
+        return pd.DataFrame()
 
-    return emoji_df
+    return pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
 
-def monthly_timeline(selected_user,df):
+
+def monthly_timeline(selected_user, df):
+    # Input validation
+    required_cols = ['user', 'message', 'year', 'month_num', 'month']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError(f"DataFrame missing required columns: {required_cols}")
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
     timeline = df.groupby(['year', 'month_num', 'month']).count()['message'].reset_index()
-
-    time = []
-    for i in range(timeline.shape[0]):
-        time.append(timeline['month'][i] + "-" + str(timeline['year'][i]))
-    timeline['time'] = time
+    timeline['time'] = timeline.apply(lambda x: f"{x['month']}-{x['year']}", axis=1)
 
     return timeline
 
+
 def daily_timeline(selected_user, df):
+    if 'Specific_Date' not in df.columns:
+        raise ValueError("DataFrame missing required column 'Specific_Date'")
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
-    daily_timeline = df.groupby('Specific_Date').count()['message'].reset_index()
 
-    return daily_timeline
+    return df.groupby('Specific_Date').count()['message'].reset_index()
 
-def week_activity_map(selected_user,df):
+
+def week_activity_map(selected_user, df):
+    if 'day_name' not in df.columns:
+        raise ValueError("DataFrame missing required column 'day_name'")
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
+
     return df['day_name'].value_counts()
 
-def month_activity_map(selected_user,df):
+
+def month_activity_map(selected_user, df):
+    if 'month' not in df.columns:
+        raise ValueError("DataFrame missing required column 'month'")
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
     return df['month'].value_counts()
 
 
-def activity_heatmap(selected_user,df):
+def activity_heatmap(selected_user, df):
+    required_cols = ['day_name', 'period', 'message']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError(f"DataFrame missing required columns: {required_cols}")
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
-    user_heatmap = df.pivot_table(index='day_name', columns='period', values='message', aggfunc='count').fillna(0)
-    return user_heatmap
+
+    return df.pivot_table(index='day_name', columns='period', values='message', aggfunc='count').fillna(0)
+
 
 def sentiment_analysis(selected_user, df):
+    required_cols = ['user', 'sentiment', 'vader_sentiment']
+    if not all(col in df.columns for col in required_cols):
+        raise ValueError(f"DataFrame missing required columns: {required_cols}")
+
+    # Ensure numeric types
+    df = df.copy()
+    df['sentiment'] = pd.to_numeric(df['sentiment'], errors='coerce').fillna(0)
+    df['vader_sentiment'] = pd.to_numeric(df['vader_sentiment'], errors='coerce').fillna(0)
+
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
-    # Calculate average sentiment score using TextBlob
     avg_sentiment = df['sentiment'].mean()
-
-    # Calculate average sentiment score using VADER
     avg_vader_sentiment = df['vader_sentiment'].mean()
 
     return avg_sentiment, avg_vader_sentiment
-
-
-
