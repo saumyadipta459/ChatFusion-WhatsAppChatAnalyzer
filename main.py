@@ -5,12 +5,12 @@ import seaborn as sns
 
 
 # Mobile sidebar instruction
-# ===== CLEAR MOBILE INSTRUCTIONS WITH VISIBLE PRIVACY =====
+# ===== HIGH-VISIBILITY MOBILE INSTRUCTIONS =====
 st.markdown("""
 <style>
     @keyframes pulse {
         0% { opacity: 1; }
-        50% { opacity: 0.6; }
+        50% { opacity: 0.7; }
         100% { opacity: 1; }
     }
     .pulse-arrow {
@@ -18,45 +18,57 @@ st.markdown("""
         display: inline-block;
         font-size: 24px;
         transform: translateY(4px);
+        color: white;
+    }
+    .privacy-box {
+        background-color: #000000;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border: 1px solid #444;
     }
     .privacy-badge {
-        background-color: #f0f4f7;
-        color: #2c3e50;
-        padding: 4px 8px;
-        border-radius: 4px;
+        background-color: #222;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
         font-weight: bold;
-        border: 1px solid #bdc3c7;
         display: inline-block;
-        margin-top: 5px;
+        margin-top: 8px;
+        border: 1px solid #444;
     }
 </style>
 
-**<span class="pulse-arrow">></span> Tap this arrow (top-left)** to upload:  
-`_chat.txt` from WhatsApp  
-<span class="privacy-badge">🔐 We don't store your data - ever</span>
+<div class="privacy-box">
+<p style="margin:0;font-size:16px;">
+<span class="pulse-arrow">></span> <strong>Tap the arrow (top-left)</strong> to upload<br>
+<code style="background:#333;color:#fff;padding:2px 6px;border-radius:4px;">_chat.txt</code> from WhatsApp
+</p>
+<div class="privacy-badge">🔐 WE NEVER SAVE YOUR CHATS</div>
+</div>
 """, unsafe_allow_html=True)
 
 with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     st.markdown("""
-    **📱 All Chat Types Supported:**  
-    ▸ Groups ▸ Private chats ▸ Broadcasts  
+    **📱 Works With All Chats:**  
+    • Groups • Private • Broadcasts  
 
-    **🔄 How To Use:**  
-    1. Export chat (⋮ → Without Media)  
-    2. Extract ZIP → find `_chat.txt`  
-    3. Upload & analyze  
+    **🔄 How To Export:**  
+    1. Open chat → ⋮ → "Export chat"  
+    2. Choose "Without Media"  
+    3. Extract the ZIP file  
 
-    <div style="background-color: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 10px 0;">
-    <strong>🔒 Privacy Guarantee</strong>  
-    • Your chats stay on your device  
-    • No data is saved or stored  
-    • Everything resets when you close the app  
+    <div style="background:#000;color:#fff;padding:12px;border-radius:8px;margin:10px 0;border:1px solid #444">
+    <strong>🔒 PRIVACY PROTECTED</strong>  
+    • All processing happens in your browser  
+    • Your data is deleted when you close the tab  
+    • We have no server to store your chats  
     </div>
 
-    ⚠️ <strong>Tips for best results:</strong>  
-    • Export chats <3 months old  
-    • Choose "Without Media" option  
-    • Upload the extracted .txt file  
+    ⚠️ <strong>For Best Results:</strong>  
+    • Use exported chats <3 months old  
+    • Always select "Without Media"  
     """, unsafe_allow_html=True)
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
