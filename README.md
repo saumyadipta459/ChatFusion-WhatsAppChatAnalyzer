@@ -22,8 +22,8 @@ Chat Fusion is an interactive **WhatsApp chat analysis tool** that provides **se
 ## 📦 Installation
 Clone the repository and install dependencies:
 ```bash
-$ git clone https://github.com/yourusername/chat-fusion.git
-$ cd chat-fusion
+$ git clone https://github.com/saumyadipta459/ChatFusion-WhatsAppChatAnalyzer.git
+$ cd ChatFusion-WhatsAppChatAnalyzer
 $ pip install -r requirements.txt
 ```
 
