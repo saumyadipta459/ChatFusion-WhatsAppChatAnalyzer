@@ -51,10 +51,8 @@ st.markdown("""
 
 with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     st.markdown("""
-     **📱 All Chat Types Supported:**  
-    ▸ **Groups**: Compare all members or focus on individuals  
-    ▸ **Private Chats**: 1-on-1 conversation analytics  
-    ▸ **Broadcasts**: Message statistics   
+    **📱 Works With All Chats:**  
+    • Groups • Private • Broadcasts  
 
     **🔄 How To Export:**  
     1. Open chat → ⋮ → "Export chat"  
