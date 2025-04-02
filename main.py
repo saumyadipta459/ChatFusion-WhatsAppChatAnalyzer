@@ -61,11 +61,11 @@ with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     2. Choose "Without Media"  
     3. Extract the ZIP file  
 
-    **📊 Insights You'll Get:**  
-    • **Sentiment Trends** (TextBlob + VADER)  
-    • **Activity Heatmaps** (days/times)  
-    • **Top Emojis & Words**  
-    • **Media/Link Statistics**
+    **📊 Insights You'll Get:  
+    1. Sentiment Trends (TextBlob + VADER)  
+    2. Activity Heatmaps (days/times)  
+    3. Top Emojis & Words 
+    4. Media/Link Statistics
 
     <div style="background:#000;color:#fff;padding:12px;border-radius:8px;margin:10px 0;border:1px solid #444">
     <strong>🔒 PRIVACY PROTECTED</strong>  
