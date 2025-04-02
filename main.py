@@ -3,7 +3,7 @@ import preprocessor, helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ===== MODIFIED VERSION WITH BLACK BACKGROUND =====
+
 # Mobile sidebar instruction
 st.markdown("""
     <style>
@@ -15,7 +15,6 @@ st.markdown("""
             border-radius: 0.5rem;
             margin-bottom: 1rem;
             text-align: center;
-            font-size: 14px;
         }
         @media (max-width: 768px) {
             .mobile-instruction {
@@ -27,6 +26,27 @@ st.markdown("""
         👈 <strong>Tap the arrow</strong> to open menu and upload your WhatsApp chat
     </div>
 """, unsafe_allow_html=True)
+
+# How-to guide expander
+with st.expander("📌 How to use ChatFusion", expanded=False):
+    st.markdown("""
+    **1. Export Your WhatsApp Chat:**
+    - Open WhatsApp → Select chat → ⋮ Menu → **Export chat** → Choose *"Without Media"*
+    - (For Android: The chat will be a .txt file)
+    - (For iPhone: You may get a .zip - extract it to find the .txt file inside)
+
+    **2. Analyze in ChatFusion:**
+    - Upload the exported .txt file
+    - Select *Overall* or specific user
+    - Choose analysis type:
+      - 💬 **Statistics**: Message metrics & activity patterns
+      - 😊 **Sentiment**: Mood analysis
+      - 📈 **Trends**: Sentiment changes over time
+
+    **3. Explore Insights:**
+    - All processing happens in your browser - we never store your data
+    - Word clouds, emoji analysis, and timeline graphs generate automatically
+    """)
 # ===== END OF MODIFIED CODE =====
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
