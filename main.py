@@ -5,23 +5,49 @@ import seaborn as sns
 
 
 # Alternate version with icon and link
+# ===== STYLISH DEVELOPER ATTRIBUTION =====
 st.markdown("""
 <style>
-    .developer-credit {
-        text-align: right;
-        color: #444;
-        font-size: 0.9rem;
-        margin: -15px 10px 15px 0;
+    @keyframes subtleGlow {
+        0% { text-shadow: 0 0 5px rgba(0, 150, 255, 0.3); }
+        50% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.5); }
+        100% { text-shadow: 0 0 5px rgba(0, 150, 255, 0.3); }
     }
-    .developer-credit a {
-        color: #2c3e50;
-        text-decoration: none;
+    .dev-badge {
+        text-align: right;
+        margin: -15px 10px 15px 0;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+    .dev-name {
+        background: linear-gradient(90deg, #0066cc, #00ccff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 600;
+        font-size: 0.95rem;
+        animation: subtleGlow 3s ease-in-out infinite;
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 150, 255, 0.2);
+    }
+    .dev-prefix {
+        color: #555;
+        font-size: 0.8rem;
+        margin-right: 5px;
+    }
+    .dev-icon {
+        font-size: 0.9rem;
+        margin-right: 3px;
+        transform: translateY(1px);
+        display: inline-block;
     }
 </style>
-<div class="developer-credit">
-    <span>🛠️</span> By 
-    <a href="https://your-portfolio.com" target="_blank">
-        <strong>Saumyadipta Saha</strong>
+<div class="dev-badge">
+    <span class="dev-icon">👨‍💻</span>
+    <span class="dev-prefix">Developed by</span>
+    <a href="https://your-portfolio.com" target="_blank" style="text-decoration: none;">
+        <span class="dev-name">Saumyadipta Saha</span>
     </a>
 </div>
 """, unsafe_allow_html=True)
