@@ -5,7 +5,7 @@ import seaborn as sns
 
 
 # Mobile sidebar instruction
-# ===== ENHANCED MOBILE INSTRUCTION WITH STRONG PRIVACY =====
+# ===== CLEAR MOBILE INSTRUCTIONS WITH VISIBLE PRIVACY =====
 st.markdown("""
 <style>
     @keyframes pulse {
@@ -19,44 +19,44 @@ st.markdown("""
         font-size: 24px;
         transform: translateY(4px);
     }
-    .privacy-highlight {
-        background-color: #004d40;
-        color: white;
-        padding: 3px 8px;
+    .privacy-badge {
+        background-color: #f0f4f7;
+        color: #2c3e50;
+        padding: 4px 8px;
         border-radius: 4px;
         font-weight: bold;
+        border: 1px solid #bdc3c7;
+        display: inline-block;
+        margin-top: 5px;
     }
 </style>
 
 **<span class="pulse-arrow">></span> Tap this arrow (top-left)** to upload:  
 `_chat.txt` from WhatsApp  
-<span class="privacy-highlight">🔒 YOUR DATA NEVER LEAVES YOUR DEVICE</span>
+<span class="privacy-badge">🔐 We don't store your data - ever</span>
 """, unsafe_allow_html=True)
 
 with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     st.markdown("""
     **📱 All Chat Types Supported:**  
-    ▸ **Groups**: Compare all members or focus on individuals  
-    ▸ **Private Chats**: 1-on-1 conversation analytics  
+    ▸ Groups ▸ Private chats ▸ Broadcasts  
 
-    **🔄 Simple 3-Step Process:**  
-    1. Export chat (⋮ → *Without Media*)  
-    2. Extract the ZIP → find `_chat.txt`  
+    **🔄 How To Use:**  
+    1. Export chat (⋮ → Without Media)  
+    2. Extract ZIP → find `_chat.txt`  
     3. Upload & analyze  
 
-    **📊 Insights You'll Get:**  
-    • Sentiment trends • Activity patterns • Top emojis  
-
-    <div style="background-color: #e8f5e9; padding: 12px; border-radius: 8px; margin-top: 10px;">
-    <strong>🛡️ Privacy Guarantee:</strong>  
-    • <strong>No data storage</strong> - analysis happens in your browser  
-    • <strong>No server uploads</strong> - we never see your chats  
-    • <strong>Automatic deletion</strong> - when you close the tab  
+    <div style="background-color: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 10px 0;">
+    <strong>🔒 Privacy Guarantee</strong>  
+    • Your chats stay on your device  
+    • No data is saved or stored  
+    • Everything resets when you close the app  
     </div>
 
-    ⚠️ <strong>Troubleshooting</strong>:  
-    - Garbled text? Re-export as *"Without Media"*  
-    - Errors? Ensure you upload the `.txt` file  
+    ⚠️ <strong>Tips for best results:</strong>  
+    • Export chats <3 months old  
+    • Choose "Without Media" option  
+    • Upload the extracted .txt file  
     """, unsafe_allow_html=True)
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
