@@ -4,6 +4,28 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+# Alternate version with icon and link
+st.markdown("""
+<style>
+    .developer-credit {
+        text-align: right;
+        color: #444;
+        font-size: 0.9rem;
+        margin: -15px 10px 15px 0;
+    }
+    .developer-credit a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+</style>
+<div class="developer-credit">
+    <span>🛠️</span> By 
+    <a href="https://your-portfolio.com" target="_blank">
+        <strong>Saumyadipta Saha</strong>
+    </a>
+</div>
+""", unsafe_allow_html=True)
+
 # Mobile sidebar instruction
 # ===== HIGH-VISIBILITY MOBILE INSTRUCTIONS =====
 st.markdown("""
