@@ -1,3 +1,5 @@
+MAIN.PY
+
 import streamlit as st
 import preprocessor, helper
 import matplotlib.pyplot as plt
@@ -9,13 +11,7 @@ uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
     # To read file as bytes:
     bytes_data = uploaded_file.getvalue()
-    try:
-        data = bytes_data.decode("utf-8")
-    except UnicodeDecodeError:
-        try:
-            data = bytes_data.decode("utf-16")  # Try UTF-16 if UTF-8 fails
-        except UnicodeDecodeError:
-            data = bytes_data.decode("latin-1")  # Fallback to Latin-1 (works for most WhatsApp exports)
+    data = bytes_data.decode("utf-8")
     df = preprocessor.preprocess(data)
 
     # Fetch the unique users
