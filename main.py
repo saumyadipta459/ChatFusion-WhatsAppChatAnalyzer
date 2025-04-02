@@ -44,6 +44,10 @@ with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     • **Media/Link Statistics**  
 
     **💡 Tip**: For best results, use chats <3 months old
+    
+    ⚠️ **Troubleshooting:**
+    - If you see garbled text: Re-export choosing "Without Media"
+    - If analysis fails: Ensure you're uploading the .txt (not .zip)
     """)
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
