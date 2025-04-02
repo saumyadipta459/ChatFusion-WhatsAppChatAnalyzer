@@ -5,7 +5,7 @@ import seaborn as sns
 
 
 # Mobile sidebar instruction
-# ===== ANIMATED MOBILE INSTRUCTIONS =====
+# ===== ENHANCED MOBILE INSTRUCTION WITH STRONG PRIVACY =====
 st.markdown("""
 <style>
     @keyframes pulse {
@@ -19,10 +19,18 @@ st.markdown("""
         font-size: 24px;
         transform: translateY(4px);
     }
+    .privacy-highlight {
+        background-color: #004d40;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
 </style>
 
 **<span class="pulse-arrow">></span> Tap this arrow (top-left)** to upload:  
-`_chat.txt` from WhatsApp *(we never store your data)*
+`_chat.txt` from WhatsApp  
+<span class="privacy-highlight">🔒 YOUR DATA NEVER LEAVES YOUR DEVICE</span>
 """, unsafe_allow_html=True)
 
 with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
@@ -30,25 +38,26 @@ with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     **📱 All Chat Types Supported:**  
     ▸ **Groups**: Compare all members or focus on individuals  
     ▸ **Private Chats**: 1-on-1 conversation analytics  
-    ▸ **Broadcasts**: Message statistics  
 
     **🔄 Simple 3-Step Process:**  
     1. Export chat (⋮ → *Without Media*)  
     2. Extract the ZIP → find `_chat.txt`  
-    3. Upload & select analysis mode  
+    3. Upload & analyze  
 
     **📊 Insights You'll Get:**  
-    • **Sentiment Trends** (TextBlob + VADER)  
-    • **Activity Heatmaps** (days/times)  
-    • **Top Emojis & Words**  
-    • **Media/Link Statistics**  
+    • Sentiment trends • Activity patterns • Top emojis  
 
-    **💡 Tip**: For best results, use chats <3 months old
-    
-    ⚠️ **Troubleshooting:**
-    - If you see garbled text: Re-export choosing "Without Media"
-    - If analysis fails: Ensure you're uploading the .txt (not .zip)
-    """)
+    <div style="background-color: #e8f5e9; padding: 12px; border-radius: 8px; margin-top: 10px;">
+    <strong>🛡️ Privacy Guarantee:</strong>  
+    • <strong>No data storage</strong> - analysis happens in your browser  
+    • <strong>No server uploads</strong> - we never see your chats  
+    • <strong>Automatic deletion</strong> - when you close the tab  
+    </div>
+
+    ⚠️ <strong>Troubleshooting</strong>:  
+    - Garbled text? Re-export as *"Without Media"*  
+    - Errors? Ensure you upload the `.txt` file  
+    """, unsafe_allow_html=True)
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 # Set font early to prevent glyph warnings
