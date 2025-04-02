@@ -46,7 +46,7 @@ st.markdown("""
 <div class="dev-badge">
     <span class="dev-icon">👨‍💻</span>
     <span class="dev-prefix">Developed by</span>
-    <a href="https://your-portfolio.com" target="_blank" style="text-decoration: none;">
+    <a href="https://saumyadiptasaha.vercel.app/" target="_blank" style="text-decoration: none;">
         <span class="dev-name">Saumyadipta Saha</span>
     </a>
 </div>
