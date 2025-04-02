@@ -3,14 +3,26 @@ import preprocessor, helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
+
 st.sidebar.title("Chat Fusion: Sentiment Analysis  and Behavioural Insights from WhatsApp Conversations")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
-    # To read file as bytes:
-    bytes_data = uploaded_file.getvalue()
-    data = bytes_data.decode("utf-8")
-    df = preprocessor.preprocess(data)
+    try:
+        bytes_data = uploaded_file.getvalue()
+        try:
+            data = bytes_data.decode("utf-8")
+        except UnicodeDecodeError:
+            try:
+                data = bytes_data.decode("utf-16")
+            except UnicodeDecodeError:
+                data = bytes_data.decode("latin-1")
+
+        df = preprocessor.preprocess(data)
+    except Exception as e:
+        st.error(f"Error processing file: {str(e)}")
+        st.stop()  # Prevents the app from crashing
 
     # Fetch the unique users
     user_list = df['user'].unique().tolist()
