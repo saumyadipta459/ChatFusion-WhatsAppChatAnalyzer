@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
+# Set font early to prevent glyph warnings
+plt.rcParams['font.family'] = 'DejaVu Sans'
+plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Liberation Sans']
 
 st.sidebar.title("Chat Fusion: Sentiment Analysis  and Behavioural Insights from WhatsApp Conversations")
 
@@ -19,10 +22,20 @@ if uploaded_file is not None:
             except UnicodeDecodeError:
                 data = bytes_data.decode("latin-1")
 
+        # Validate it looks like a WhatsApp export
+        if not any(x in data[:100] for x in [' - ', ']: ', '[']):
+            st.error("This doesn't appear to be a WhatsApp chat export file")
+            st.stop()
+
         df = preprocessor.preprocess(data)
+
+        # Additional type safety
+        df['message'] = df['message'].astype(str)
+        df['user'] = df['user'].astype(str)
+
     except Exception as e:
         st.error(f"Error processing file: {str(e)}")
-        st.stop()  # Prevents the app from crashing
+        st.stop()
 
     # Fetch the unique users
     user_list = df['user'].unique().tolist()
