@@ -3,6 +3,7 @@ import pandas as pd
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+
 def preprocess(data):
     pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s[APap][Mm]\s-\s'
     messages = re.split(pattern, data)[1:]
@@ -10,7 +11,7 @@ def preprocess(data):
 
     # Create DataFrame
     df = pd.DataFrame({'user_message': messages, 'message_date': dates})
-    
+
     # NEW: Ensure user_message is string type
     df['user_message'] = df['user_message'].astype(str)
 
@@ -37,7 +38,7 @@ def preprocess(data):
     df['user'] = users
     df['message'] = messages
     df.drop(columns=['user_message'], inplace=True)
-    
+
     # NEW: Ensure critical columns are strings
     df['message'] = df['message'].astype(str)
     df['user'] = df['user'].astype(str)
@@ -50,7 +51,7 @@ def preprocess(data):
     df['day_name'] = df['date'].dt.day_name()
     df['hour'] = df['date'].dt.hour
     df['minute'] = df['date'].dt.minute
-    
+
     # NEW: Add try-catch for sentiment analysis
     try:
         df['sentiment'] = df['message'].apply(lambda msg: TextBlob(str(msg)).sentiment.polarity)
