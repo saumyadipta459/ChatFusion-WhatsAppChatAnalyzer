@@ -3,7 +3,7 @@ import preprocessor, helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
+#plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 
 st.sidebar.title("Chat Fusion: Sentiment Analysis  and Behavioural Insights from WhatsApp Conversations")
 
