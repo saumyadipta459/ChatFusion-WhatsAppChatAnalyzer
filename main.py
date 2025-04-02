@@ -3,16 +3,19 @@ import preprocessor, helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# ===== MODIFIED VERSION WITH BLACK BACKGROUND =====
 # Mobile sidebar instruction
 st.markdown("""
     <style>
         .mobile-instruction {
             display: none;
             padding: 0.5rem;
-            background: #f0f2f6;
+            background: #000000;  /* Black background */
+            color: white;        /* White text */
             border-radius: 0.5rem;
             margin-bottom: 1rem;
             text-align: center;
+            font-size: 14px;
         }
         @media (max-width: 768px) {
             .mobile-instruction {
@@ -24,7 +27,7 @@ st.markdown("""
         👈 <strong>Tap the arrow</strong> to open menu and upload your WhatsApp chat
     </div>
 """, unsafe_allow_html=True)
-# ===== END OF PASTE =====
+# ===== END OF MODIFIED CODE =====
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 # Set font early to prevent glyph warnings
