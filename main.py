@@ -5,49 +5,52 @@ import seaborn as sns
 
 
 # Mobile sidebar instruction
+# ===== MOBILE INSTRUCTION + EXPANDER =====
 st.markdown("""
-    <style>
+<style>
+    .mobile-instruction {
+        display: none;
+        padding: 12px;
+        background: #000000;
+        color: white;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        text-align: center;
+        font-size: 15px;
+    }
+    @media (max-width: 768px) {
         .mobile-instruction {
-            display: none;
-            padding: 0.5rem;
-            background: #000000;  /* Black background */
-            color: white;        /* White text */
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
+            display: block;
         }
-        @media (max-width: 768px) {
-            .mobile-instruction {
-                display: block;
-            }
-        }
-    </style>
-    <div class="mobile-instruction">
-        👈 <strong>Tap the arrow</strong> to open menu and upload your WhatsApp chat
-    </div>
+    }
+</style>
+<div class="mobile-instruction">
+    👈 <strong>Tap the arrow</strong> to upload your WhatsApp .txt file
+</div>
 """, unsafe_allow_html=True)
 
-# How-to guide expander
-with st.expander("📌 How to use ChatFusion", expanded=False):
+with st.expander("📝 Step-by-Step Guide (Android & iPhone)", expanded=False):
     st.markdown("""
-    **1. Export Your WhatsApp Chat:**
-    - Open WhatsApp → Select chat → ⋮ Menu → **Export chat** → Choose *"Without Media"*
-    - (For Android: The chat will be a .txt file)
-    - (For iPhone: You may get a .zip - extract it to find the .txt file inside)
+    **1. Export Correctly:**
+    - Open WhatsApp → Select chat → ⋮ Menu → **Export chat**
+    - Select *"Without Media"* (important!)
+    
+    **2. Prepare Your File:**
+    - You'll get a .zip file (both Android and iPhone)
+    - Extract it:
+      - *On Phone*: Use Files app → Tap the .zip → "Extract"
+      - *On Computer*: Right-click → "Extract All"
+    - Find the extracted `.txt` file (usually named "_chat.txt")
 
-    **2. Analyze in ChatFusion:**
-    - Upload the exported .txt file
-    - Select *Overall* or specific user
-    - Choose analysis type:
-      - 💬 **Statistics**: Message metrics & activity patterns
-      - 😊 **Sentiment**: Mood analysis
-      - 📈 **Trends**: Sentiment changes over time
+    **3. Upload Here:**
+    - Only upload the extracted `.txt` file
+    - We process everything in your browser (no data stored)
 
-    **3. Explore Insights:**
-    - All processing happens in your browser - we never store your data
-    - Word clouds, emoji analysis, and timeline graphs generate automatically
+    ⚠️ **Troubleshooting:**
+    - If you see garbled text: Re-export choosing "Without Media"
+    - If analysis fails: Ensure you're uploading the .txt (not .zip)
     """)
-# ===== END OF MODIFIED CODE =====
+# ===== END OF CODE BY SAUMYADIPTA =====
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 # Set font early to prevent glyph warnings
