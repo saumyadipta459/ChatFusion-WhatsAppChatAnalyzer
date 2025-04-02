@@ -5,86 +5,46 @@ import seaborn as sns
 
 
 # Mobile sidebar instruction
-# ===== MOBILE INSTRUCTION + EXPANDER =====
-# ===== ENHANCED MOBILE INSTRUCTION + EXPANDER =====
+# ===== ANIMATED MOBILE INSTRUCTIONS =====
 st.markdown("""
 <style>
-    .mobile-instruction {
-        display: none;
-        padding: 14px;
-        background: #000000;
-        color: white;
-        border-radius: 10px;
-        margin: 0 auto 20px auto;
-        text-align: center;
-        font-size: 16px;
-        max-width: 90%;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .menu-icon {
-        font-size: 24px;
-        animation: pulse 2s infinite;
-        display: inline-block;
-        transform: translateY(3px);
-    }
     @keyframes pulse {
         0% { opacity: 1; }
         50% { opacity: 0.6; }
         100% { opacity: 1; }
     }
-    @media (max-width: 768px) {
-        .mobile-instruction {
-            display: block;
-        }
-    }
-    .disclaimer {
-        font-size: 13px;
-        color: #aaa;
-        margin-top: 8px;
+    .pulse-arrow {
+        animation: pulse 2s infinite;
+        display: inline-block;
+        font-size: 24px;
+        transform: translateY(4px);
     }
 </style>
-<div class="mobile-instruction">
-    <span class="menu-icon">☰</span> 
-    <strong>Tap the menu icon in the top-left corner</strong><br>
-    Then select your WhatsApp <code style="background:#333;padding:2px 4px;border-radius:3px;">_chat.txt</code> file
-    <div class="disclaimer">(We never access or store your chats)</div>
-</div>
+
+**<span class="pulse-arrow">></span> Tap this arrow (top-left)** to upload:  
+`_chat.txt` from WhatsApp *(we never store your data)*
 """, unsafe_allow_html=True)
 
-with st.expander("📝 Complete Guide for All Devices", expanded=False):
+with st.expander("🔍 Analyze Any WhatsApp Chat", expanded=False):
     st.markdown("""
-    ### 📤 How to Export from WhatsApp
-    **For All Phones:**
-    1. Open the WhatsApp chat you want to analyze
-    2. Tap ⋮ (Android) or ⓘ (iPhone) → **Export Chat**
-    3. Choose *"Without Media"* (creates smaller file)
-    4. You'll receive a ZIP file named like: <code>WhatsApp Chat with John.zip</code>
+    **📱 All Chat Types Supported:**  
+    ▸ **Groups**: Compare all members or focus on individuals  
+    ▸ **Private Chats**: 1-on-1 conversation analytics  
+    ▸ **Broadcasts**: Message statistics  
 
-    ### 📂 Extracting Your Chat File
-    **On Mobile:**
-    - Open your **Files/Finder** app
-    - Locate the ZIP file (usually in Downloads/WhatsApp folder)
-    - Tap it → Choose *"Extract"*
-    - Find the <code>_chat.txt</code> file inside
+    **🔄 Simple 3-Step Process:**  
+    1. Export chat (⋮ → *Without Media*)  
+    2. Extract the ZIP → find `_chat.txt`  
+    3. Upload & select analysis mode  
 
-    **On Computer:**
-    - Connect your phone or email yourself the ZIP
-    - Right-click the ZIP → *"Extract All"*
-    - The extracted <code>_chat.txt</code> is your upload file
+    **📊 Insights You'll Get:**  
+    • **Sentiment Trends** (TextBlob + VADER)  
+    • **Activity Heatmaps** (days/times)  
+    • **Top Emojis & Words**  
+    • **Media/Link Statistics**  
 
-    ### ⬆️ Uploading to ChatFusion
-    1. Tap <span style="color:#4e8cff">☰ Menu</span> (top-left)
-    2. Select *"Choose File"*
-    3. Pick the <code>_chat.txt</code> file (not the ZIP!)
-    4. Wait for processing (takes 10-30 seconds)
-
-    🔍 **Pro Tip:** For best results:
-    - Export 1-on-1 chats or small groups (<50 people)
-    - Choose daytime exports (WhatsApp sometimes fails at night)
-    - Re-export if you see strange characters
+    **💡 Tip**: For best results, use chats <3 months old
     """)
-
-# ===== BY SAUMYADIPTA - ENHANCED VERSION =====
 
 #plt.rcParams['font.family'] = 'DejaVu Sans'  # Fixes missing emoji/glyph warnings
 # Set font early to prevent glyph warnings
