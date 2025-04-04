@@ -226,3 +226,51 @@ def sentiment_analysis(selected_user, df):
     avg_vader_sentiment = df['vader_sentiment'].mean()
 
     return avg_sentiment, avg_vader_sentiment
+
+
+def first_last_message_times(selected_user, df):
+    # Input validation
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame")
+    if 'date' not in df.columns:
+        raise ValueError("DataFrame missing required column 'date'")
+
+    df = df.copy()
+
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+
+    if df.empty:
+        return None, None
+
+    # Get first and last messages
+    first_msg = df.iloc[0]
+    last_msg = df.iloc[-1]
+
+    return first_msg['date'], last_msg['date']
+
+def get_conversation_duration(first_msg_time, last_msg_time):
+    if not first_msg_time or not last_msg_time:
+        return None, None
+    duration = last_msg_time - first_msg_time
+    return duration.days, duration.days * 24
+
+
+def first_last_message_details(selected_user, df):
+    """Returns (first_msg, first_time, last_msg, last_time)"""
+    if not isinstance(df, pd.DataFrame) or 'date' not in df.columns or 'message' not in df.columns:
+        raise ValueError("DataFrame missing required columns")
+
+    df = df.copy()
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+
+    if df.empty:
+        return None, None, None, None
+
+    first_msg = df.iloc[0]['message']
+    first_time = df.iloc[0]['date']
+    last_msg = df.iloc[-1]['message']
+    last_time = df.iloc[-1]['date']
+
+    return first_msg, first_time, last_msg, last_time
