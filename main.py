@@ -267,6 +267,50 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
     if st.sidebar.button("Show Statistics", key='statistics'):
+         # === First/Last Message Details ===
+        first_msg, first_time, last_msg, last_time = helper.first_last_message_details(selected_user, df)
+        total_days, total_hours = helper.get_conversation_duration(first_time, last_time)
+
+        st.title("⏳ Conversation Timeline")
+
+        if selected_user == "Overall":
+            st.subheader("Across All Users")
+        else:
+            st.subheader(f"For User: {selected_user}")
+
+        # Display in expandable sections for compactness
+        with st.expander("📅 First Message", expanded=True):
+            if first_msg:
+                st.markdown(f"""
+                **🗓️ Date:** {first_time.strftime('%A, %d %b %Y')}  
+                **⏰ Time:** {first_time.strftime('%I:%M %p')}  
+                **💬 Message:-** {first_msg[:200]}{'...' if len(first_msg) > 200 else ''} 
+                 
+                
+                """)
+            else:
+                st.write("No first message found")
+
+        with st.expander("📅 Last Message", expanded=True):
+            if last_msg:
+                st.markdown(f"""
+                **🗓️ Date:** {last_time.strftime('%A, %d %b %Y')}  
+                **⏰ Time:** {last_time.strftime('%I:%M %p')}  
+                **💬 Message:-**  {last_msg[:200]}{'...' if len(last_msg) > 200 else ''}
+                
+                
+                """)
+            else:
+                st.write("No last message found")
+
+        # Duration in a separate box
+        st.markdown(f"""
+        <div style="background:black;padding:10px;border-radius:10px;">
+            ⏳ Total Duration: 
+            {total_days} days and ({total_hours} hours)
+        </div>
+        """, unsafe_allow_html=True)
+        
         num_messages, words, num_media_messages, num_links = helper.fetch_stats(selected_user, df)
         st.title("Statistics Of The Chats")
 
